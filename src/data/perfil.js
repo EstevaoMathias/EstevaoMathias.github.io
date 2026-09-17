@@ -43,7 +43,14 @@ export const perfil = {
 export const ferramentas = [
   {
     grupo: 'Visualização & BI',
-    itens: ['Power BI', 'Looker Studio', 'Metabase', 'Excel avançado'],
+    itens: [
+      'Power BI',
+      'Apache Superset',
+      // painel analitico feito em codigo, no lugar de uma ferramenta de BI:
+      // no mercado isso costuma aparecer como "data app" ou "custom BI"
+      'Data apps (React + FastAPI)',
+      'Excel avançado',
+    ],
   },
   {
     grupo: 'Dados & Consulta',
