@@ -5,8 +5,13 @@ const SELETOR_FOCAVEL =
 
 export default function ProjetoModal({ projeto, aoFechar }) {
   const [indice, setIndice] = useState(0)
+  const [ampliado, setAmpliado] = useState(false)
+  const [alta, setAlta] = useState(false)
   const painelRef = useRef(null)
+  const areaRef = useRef(null)
   const focoAnteriorRef = useRef(null)
+  const arrasteRef = useRef(null)
+  const houveArrasteRef = useRef(false)
 
   const imagens = projeto?.imagens ?? []
   const total = imagens.length
@@ -21,6 +26,9 @@ export default function ProjetoModal({ projeto, aoFechar }) {
   // volta para o primeiro print sempre que outro projeto e aberto
   useEffect(() => setIndice(0), [projeto?.id])
 
+  // trocar de print sempre volta ao tamanho ajustado
+  useEffect(() => setAmpliado(false), [indice, projeto?.id])
+
   // trava o scroll da pagina de fundo enquanto o modal esta aberto
   useEffect(() => {
     document.body.classList.add('modal-aberto')
@@ -34,24 +42,88 @@ export default function ProjetoModal({ projeto, aoFechar }) {
     return () => focoAnteriorRef.current?.focus?.()
   }, [])
 
-  // atalhos de teclado: Esc fecha, setas trocam de print, Tab circula dentro do modal
+  // Amplia mirando o ponto clicado: sem isso o zoom cai sempre no canto
+  // superior esquerdo e a pessoa perde de vista o que queria ver de perto.
+  function alternarZoom(evento) {
+    // clique que veio de um arraste serve para mover, nao para reduzir
+    if (houveArrasteRef.current) {
+      houveArrasteRef.current = false
+      return
+    }
+
+    if (ampliado) {
+      setAmpliado(false)
+      return
+    }
+
+    const alvo = evento.currentTarget.getBoundingClientRect()
+    const fx = (evento.clientX - alvo.left) / alvo.width
+    const fy = (evento.clientY - alvo.top) / alvo.height
+
+    setAmpliado(true)
+    requestAnimationFrame(() => {
+      const area = areaRef.current
+      if (!area) return
+      area.scrollLeft = fx * area.scrollWidth - area.clientWidth / 2
+      area.scrollTop = fy * area.scrollHeight - area.clientHeight / 2
+    })
+  }
+
+  // arrastar para navegar pela imagem ampliada (no toque o proprio scroll resolve)
+  function aoPressionar(evento) {
+    if (!ampliado || evento.button !== 0) return
+    const area = areaRef.current
+    arrasteRef.current = {
+      x: evento.clientX,
+      y: evento.clientY,
+      esquerda: area.scrollLeft,
+      topo: area.scrollTop,
+      arrastou: false,
+    }
+  }
+
+  function aoArrastar(evento) {
+    const arraste = arrasteRef.current
+    if (!arraste) return
+    const dx = evento.clientX - arraste.x
+    const dy = evento.clientY - arraste.y
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) arraste.arrastou = true
+    const area = areaRef.current
+    area.scrollLeft = arraste.esquerda - dx
+    area.scrollTop = arraste.topo - dy
+  }
+
+  function aoSoltar() {
+    houveArrasteRef.current = Boolean(arrasteRef.current?.arrastou)
+    arrasteRef.current = null
+  }
+
+  // atalhos de teclado: Esc sai do zoom e depois fecha, setas navegam, Tab circula
   useEffect(() => {
     const aoTeclar = (evento) => {
       if (evento.key === 'Escape') {
         evento.preventDefault()
-        aoFechar()
+        if (ampliado) setAmpliado(false)
+        else aoFechar()
         return
       }
 
-      if (total > 1 && evento.key === 'ArrowLeft') {
+      const seta = evento.key === 'ArrowLeft' || evento.key === 'ArrowRight'
+
+      if (seta && ampliado) {
+        // com a imagem ampliada as setas percorrem a propria imagem
         evento.preventDefault()
-        anterior()
+        areaRef.current?.scrollBy({
+          left: evento.key === 'ArrowLeft' ? -120 : 120,
+          behavior: 'smooth',
+        })
         return
       }
 
-      if (total > 1 && evento.key === 'ArrowRight') {
+      if (seta && total > 1) {
         evento.preventDefault()
-        proxima()
+        if (evento.key === 'ArrowLeft') anterior()
+        else proxima()
         return
       }
 
@@ -74,7 +146,7 @@ export default function ProjetoModal({ projeto, aoFechar }) {
 
     document.addEventListener('keydown', aoTeclar)
     return () => document.removeEventListener('keydown', aoTeclar)
-  }, [aoFechar, anterior, proxima, total])
+  }, [aoFechar, anterior, proxima, total, ampliado])
 
   if (!projeto) return null
 
@@ -96,25 +168,55 @@ export default function ProjetoModal({ projeto, aoFechar }) {
       >
         {/* ---------- area das imagens ---------- */}
         <div className="flex min-w-0 flex-col bg-surface-2">
-          <div className="relative flex flex-1 items-center justify-center p-3 sm:p-6">
-            {imagemAtual ? (
-              <img
-                key={imagemAtual.src}
-                src={imagemAtual.src}
-                alt={imagemAtual.legenda || `Print do projeto ${projeto.titulo}`}
-                className="max-h-[68vh] w-full rounded-lg object-contain"
-              />
-            ) : (
-              <p className="p-16 text-suave">Este projeto ainda não tem imagens.</p>
-            )}
+          <div className="relative">
+            <div
+              ref={areaRef}
+              onMouseDown={aoPressionar}
+              onMouseMove={aoArrastar}
+              onMouseUp={aoSoltar}
+              onMouseLeave={aoSoltar}
+              className={
+                // pagina alta cabendo inteira na tela viraria uma tira estreita
+                // no meio do vazio: nela vale ocupar a largura e rolar
+                ampliado
+                  ? 'h-[72vh] cursor-grab overflow-auto overscroll-contain active:cursor-grabbing'
+                  : alta
+                    ? 'h-[72vh] overflow-y-auto overscroll-contain p-3 sm:p-6'
+                    : 'flex items-center justify-center p-3 sm:p-6'
+              }
+            >
+              {imagemAtual ? (
+                <img
+                  key={imagemAtual.src}
+                  src={imagemAtual.src}
+                  alt={imagemAtual.legenda || `Print do projeto ${projeto.titulo}`}
+                  draggable={false}
+                  onClick={alternarZoom}
+                  onLoad={(evento) => {
+                    const { naturalWidth: larg, naturalHeight: alt } =
+                      evento.currentTarget
+                    setAlta(alt / larg > 1.15)
+                  }}
+                  className={
+                    ampliado
+                      ? 'w-auto max-w-none select-none'
+                      : alta
+                        ? 'w-full cursor-zoom-in rounded-lg'
+                        : 'max-h-[72vh] w-full cursor-zoom-in rounded-lg object-contain'
+                  }
+                />
+              ) : (
+                <p className="p-16 text-suave">Este projeto ainda não tem imagens.</p>
+              )}
+            </div>
 
-            {total > 1 && (
+            {total > 1 && !ampliado && (
               <>
                 <button
                   type="button"
                   onClick={anterior}
                   aria-label="Imagem anterior"
-                  className="absolute left-4 flex size-10 cursor-pointer items-center justify-center rounded-full border border-linha bg-base/85 text-lg text-texto transition-colors hover:bg-base"
+                  className="absolute top-1/2 left-4 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-linha bg-base/85 text-lg text-texto transition-colors hover:bg-base"
                 >
                   <span aria-hidden="true">‹</span>
                 </button>
@@ -122,11 +224,23 @@ export default function ProjetoModal({ projeto, aoFechar }) {
                   type="button"
                   onClick={proxima}
                   aria-label="Próxima imagem"
-                  className="absolute right-4 flex size-10 cursor-pointer items-center justify-center rounded-full border border-linha bg-base/85 text-lg text-texto transition-colors hover:bg-base"
+                  className="absolute top-1/2 right-4 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-linha bg-base/85 text-lg text-texto transition-colors hover:bg-base"
                 >
                   <span aria-hidden="true">›</span>
                 </button>
               </>
+            )}
+
+            {imagemAtual && (
+              <button
+                type="button"
+                onClick={() => setAmpliado((v) => !v)}
+                aria-pressed={ampliado}
+                className="absolute right-4 bottom-4 flex cursor-pointer items-center gap-1.5 rounded-lg border border-linha bg-base/90 px-3 py-1.5 text-xs font-medium text-texto backdrop-blur-sm transition-colors hover:bg-base"
+              >
+                <span aria-hidden="true">{ampliado ? '−' : '+'}</span>
+                {ampliado ? 'Reduzir' : 'Ampliar'}
+              </button>
             )}
           </div>
 
@@ -238,20 +352,34 @@ export default function ProjetoModal({ projeto, aoFechar }) {
           </div>
 
           <p className="border-t border-linha px-5 py-3 text-xs text-suave sm:px-6">
-            Use{' '}
-            <kbd className="rounded border border-linha bg-surface px-1 py-0.5">Esc</kbd>{' '}
-            para fechar
-            {total > 1 && (
+            {ampliado ? (
               <>
-                {' '}
-                e as{' '}
+                Arraste para percorrer a imagem.{' '}
                 <kbd className="rounded border border-linha bg-surface px-1 py-0.5">
-                  setas
+                  Esc
                 </kbd>{' '}
-                para trocar de imagem
+                volta ao tamanho ajustado.
+              </>
+            ) : (
+              <>
+                Clique na imagem para ampliar.{' '}
+                <kbd className="rounded border border-linha bg-surface px-1 py-0.5">
+                  Esc
+                </kbd>{' '}
+                fecha
+                {total > 1 && (
+                  <>
+                    {' '}
+                    e as{' '}
+                    <kbd className="rounded border border-linha bg-surface px-1 py-0.5">
+                      setas
+                    </kbd>{' '}
+                    trocam de imagem
+                  </>
+                )}
+                .
               </>
             )}
-            .
           </p>
         </div>
       </div>
