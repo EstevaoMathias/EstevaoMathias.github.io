@@ -20,6 +20,10 @@ export const perfil = {
   // Cidade/estado ou "Remoto". Deixe string vazia ('') para esconder.
   local: 'Brasil',
 
+  // Foto do topo da pagina. Use '' para esconder. Para trocar: salve um
+  // recorte QUADRADO em public/ (a pagina corta em circulo) e aponte aqui.
+  foto: '/foto-perfil.jpg',
+
   // Links de contato. Deixe qualquer campo como '' para esconder o botao.
   contato: {
     email: 'estevaomathias19@gmail.com',
