@@ -40,7 +40,7 @@ export default function Topo() {
 
             {perfil.contato.email && (
               <a
-                href={`mailto:${perfil.contato.email}`}
+                href="#contato"
                 className="rounded-lg border border-linha bg-surface px-5 py-2.5 text-sm font-semibold text-texto transition-colors hover:border-suave hover:bg-surface-2"
               >
                 Entrar em contato

@@ -6,7 +6,7 @@ export default function ProjetoCard({ projeto, aoAbrir }) {
   const totalImagens = projeto.imagens?.length ?? 0
 
   return (
-    <article className="group h-full">
+    <article className="group h-full min-w-0">
       <button
         type="button"
         onClick={aoAbrir}
@@ -35,7 +35,7 @@ export default function ProjetoCard({ projeto, aoAbrir }) {
         </div>
 
         <div className="flex flex-1 flex-col p-5">
-          <div className="mb-2 flex items-center gap-2 text-xs text-suave">
+          <div className="mb-2 flex min-w-0 items-center gap-2 text-xs text-suave">
             {projeto.cliente && <span className="truncate">{projeto.cliente}</span>}
             {projeto.cliente && projeto.ano && <span aria-hidden="true">·</span>}
             {projeto.ano && <span>{projeto.ano}</span>}

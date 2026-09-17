@@ -26,15 +26,15 @@ export default function Cabecalho() {
           : 'border-b border-transparent'
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <a
           href="#topo"
-          className="text-sm font-semibold tracking-tight text-texto transition-colors hover:text-destaque-suave"
+          className="min-w-0 truncate text-sm font-semibold tracking-tight text-texto transition-colors hover:text-destaque-suave"
         >
           {perfil.nome}
         </a>
 
-        <nav aria-label="Seções do site">
+        <nav aria-label="Seções do site" className="shrink-0">
           <ul className="flex items-center gap-1 sm:gap-2">
             {secoes.map((secao) => (
               <li key={secao.href}>
