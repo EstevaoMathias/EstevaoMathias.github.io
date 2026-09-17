@@ -17,7 +17,8 @@ export default function Projetos({ aoAbrirProjeto }) {
             </span>
             <span>
               Nos prints, nome e CNPJ de loja, dados de pessoas e identificação de
-              empresas aparecem ofuscados. A estrutura e a análise são as originais.
+              empresas aparecem ofuscados ou trocados por rótulos genéricos. A
+              estrutura e a análise são as originais.
             </span>
           </p>
         </div>

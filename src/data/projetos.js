@@ -19,9 +19,16 @@
 //   capa        imagem do card (opcional, mais leve). Sem ela usa a 1a imagem.
 //   imagens     lista de prints: { src, legenda }
 //
-// ATENCAO: todos os prints passaram por ofuscacao de nome e CNPJ de loja, nome
-// e contato de pessoas, razao social e logotipos. Ao trocar ou incluir print
-// novo, refaca esse tratamento antes de publicar.
+// ATENCAO: todo print passa por tratamento de dado sensivel -- nome e CNPJ de
+// loja, nome e contato de pessoas, razao social e logotipos. Sao dois caminhos:
+//
+//   - print vindo de PDF (Power BI): a regiao e pixelizada no raster
+//     (ferramentas/ofuscar.py);
+//   - print de aplicacao web: os nomes sao trocados por rotulos genericos na
+//     resposta da API, ANTES de o navegador desenhar -- unico jeito seguro,
+//     porque grafico em <canvas> nao deixa o rotulo no DOM para apagar depois.
+//
+// Ao trocar ou incluir print novo, refaca o tratamento antes de publicar.
 // ---------------------------------------------------------------------------
 
 export const projetos = [
@@ -202,18 +209,26 @@ export const projetos = [
     id: 'acompanhamento-de-campanhas',
     titulo: 'Acompanhamento de Campanhas',
     cliente: 'Indústria farmacêutica',
-    ano: '2025',
+    ano: '2026',
     resumo:
       'Quem vendeu e quem não vendeu na campanha da indústria, por PDV, por vendedor e por produto.',
     objetivo:
-      'A indústria investe em campanha de incentivo e precisa saber onde o dinheiro virou venda. Com 377 PDVs na campanha e apenas 13 registrando venda, o valor do painel está em expor o outro lado: os 364 PDVs sem nenhuma venda, nominalmente, para o time de campo agir enquanto a campanha está de pé. As quatro abas percorrem o mesmo dado em recortes diferentes — rede, filial, vendedor e produto.',
+      'A indústria investe em campanha de incentivo e precisa saber onde o dinheiro virou venda. Com 377 PDVs na campanha e apenas 13 registrando venda, o valor do painel está em expor o outro lado: os 364 PDVs sem nenhuma venda, nominalmente, para o time de campo agir enquanto a campanha está de pé. Nasceu em Power BI e foi reescrito como aplicação web — backend em FastAPI lendo de ClickHouse e frontend em React — para sair da licença por usuário, abrir mais rápido e poder ser embarcado no produto. As quatro telas percorrem o mesmo dado em recortes diferentes: rede, filial, vendedor e produto.',
     destaques: [
       'PDVs com e sem venda, com dias restantes de campanha',
       'Ranking dos cinco PDVs e dos cinco vendedores que mais venderam',
-      'Mapa de localização dos pontos de venda participantes',
-      'Quantidade vendida por marca e por produto, com estoque',
+      'Mapa que agrupa os pontos de venda por cidade, dimensionado pela quantidade vendida',
+      'Quantidade vendida por marca e por produto, com estoque e compras recentes',
+      'Tabelas com busca, ordenação, paginação no servidor e exportação para Excel',
     ],
-    ferramentas: ['Power BI', 'SQL', 'DAX'],
+    ferramentas: [
+      'Python',
+      'FastAPI',
+      'ClickHouse',
+      'React',
+      'TypeScript',
+      'Chart.js',
+    ],
     capa: '/assets/projetos/campanhas-capa.png',
     imagens: [
       {
@@ -222,7 +237,8 @@ export const projetos = [
       },
       {
         src: '/assets/projetos/campanhas-2.png',
-        legenda: 'Filial: PDVs com e sem venda, ranking, mapa e resumo por campanha',
+        legenda:
+          'Filial: PDVs com e sem venda, ranking, mapa por cidade e resumo da campanha',
       },
       {
         src: '/assets/projetos/campanhas-3.png',
