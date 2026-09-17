@@ -73,6 +73,63 @@ export const projetos = [
   },
 
   {
+    id: 'bi-cinco-paineis',
+    titulo: 'Cinco Painéis em Uma Aplicação',
+    cliente: 'Distribuidora de alimentos',
+    ano: '2026',
+    resumo:
+      'Cinco painéis Power BI de uma distribuidora reunidos em uma única aplicação web, com navegação em dois níveis.',
+    objetivo:
+      'A distribuidora tinha cinco relatórios Power BI separados — Compras, Meta de Pedidos, Pedidos, Venda e Venda por Rota — e a fonte deles ia ser desligada. Em vez de recriar cinco arquivos, virou uma aplicação só: cada painel é uma aba no topo e suas páginas viram botões dentro dela, somando 24 telas. A origem do dado mudou junto, do data warehouse antigo para o ClickHouse, com carga recorrente três vezes ao dia — o que tirou a licença por usuário do caminho e deixou a abertura instantânea.',
+    destaques: [
+      'Navegação em dois níveis: 5 painéis no topo, 24 páginas dentro deles',
+      'Mapa de clientes por rota, com o tamanho do ponto pelo valor vendido',
+      'Carteira com positivação por vendedor, cliente e cidade',
+      'Acompanhamento de meta diária contra o realizado, acumulado no mês',
+      'Filtros em cascata: escolher um grupo reduz a lista de produtos',
+      'Tabelas com busca, ordenação e paginação resolvidas no servidor',
+    ],
+    ferramentas: [
+      'Python',
+      'FastAPI',
+      'ClickHouse',
+      'React',
+      'TypeScript',
+      'Chart.js',
+      'Leaflet',
+    ],
+    capa: '/assets/projetos/cinco-paineis-capa.png',
+    imagens: [
+      {
+        src: '/assets/projetos/cinco-paineis-1.png',
+        legenda:
+          'Vendas por rota: cada ponto é um cliente, dimensionado pelo valor vendido',
+      },
+      {
+        src: '/assets/projetos/cinco-paineis-2.png',
+        legenda:
+          'Carteira de clientes com positivação, por vendedor, cliente e cidade',
+      },
+      {
+        src: '/assets/projetos/cinco-paineis-3.png',
+        legenda: 'Meta diária contra o realizado, com acumulado e desvio no mês',
+      },
+      {
+        src: '/assets/projetos/cinco-paineis-4.png',
+        legenda: 'Pedidos: valores a faturar por vendedor e por situação',
+      },
+      {
+        src: '/assets/projetos/cinco-paineis-5.png',
+        legenda: 'Venda: evolução mensal, participação por grupo e por tipo de cliente',
+      },
+      {
+        src: '/assets/projetos/cinco-paineis-6.png',
+        legenda: 'Análise de produtos: participação e margem por item',
+      },
+    ],
+  },
+
+  {
     id: 'simulacao-de-negociacao',
     titulo: 'Simulação de Negociação',
     cliente: 'Indústria farmacêutica',
