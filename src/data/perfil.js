@@ -13,8 +13,8 @@ export const perfil = {
 
   // Um ou dois paragrafos sobre voce. Cada item da lista vira um paragrafo.
   sobre: [
-    'Trabalho com todo o ciclo do dado: da extração e modelagem até a entrega do painel na mão de quem toma a decisão. Gosto de resolver o problema de verdade — entender qual pergunta o time precisa responder antes de escolher o gráfico.',
-    'No dia a dia atuo com SQL, Python e ferramentas de BI, sempre com atenção a performance: painel que demora para abrir é painel que ninguém usa.',
+    'Trabalho no ciclo inteiro do painel: entender a pergunta que o time precisa responder, modelar o dado, escrever a consulta e entregar a tela pronta para decidir. A maior parte do que faço vive em distribuição e no setor farmacêutico — campanha de indústria, comparativo com dados de mercado, monitoramento de integração e simulação de negociação com fornecedor.',
+    'Além do Power BI, construo painel como aplicação web quando o caso pede: backend em Python consultando banco colunar e frontend em React. O motivo costuma ser prático — sair da licença por usuário, abrir em segundos e poder embarcar o painel dentro do produto. Quando é migração, o critério é paridade: o número novo tem que bater com o antigo, linha a linha, antes de desligar o que existia.',
   ],
 
   // Cidade/estado ou "Remoto". Deixe string vazia ('') para esconder.
@@ -53,11 +53,24 @@ export const ferramentas = [
     ],
   },
   {
-    grupo: 'Dados & Consulta',
-    itens: ['SQL', 'PostgreSQL', 'ClickHouse', 'Modelagem dimensional'],
+    grupo: 'Dados & Modelagem',
+    itens: [
+      'SQL',
+      'ClickHouse',
+      'SQL Server',
+      'Dremio',
+      'PostgreSQL',
+      'Modelagem dimensional',
+    ],
   },
   {
-    grupo: 'Análise & Automação',
-    itens: ['Python', 'Pandas', 'ETL / pipelines', 'Airflow'],
+    grupo: 'Engenharia & Entrega',
+    itens: [
+      'Python',
+      'FastAPI',
+      'Airflow',
+      'Docker',
+      'Git / GitHub Actions',
+    ],
   },
 ]
