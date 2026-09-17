@@ -20,6 +20,32 @@ export const perfil = {
   // Cidade/estado ou "Remoto". Deixe string vazia ('') para esconder.
   local: 'Brasil',
 
+  // Trajetoria profissional, do mais recente para o mais antigo.
+  // Use [] para esconder a secao inteira.
+  trajetoria: [
+    {
+      periodo: 'nov/2024 — atual',
+      empresa: 'Gruppy',
+      cargo: 'Analista de Dados',
+      resumo:
+        'Painéis analíticos, pipelines de extração e transformação e manutenção de Data Warehouse e Lakehouse, com indicadores e métricas para as áreas de negócio.',
+    },
+    {
+      periodo: 'abr/2023 — out/2024',
+      empresa: 'WebDecisor',
+      cargo: 'Analista de Dados',
+      resumo:
+        'Dashboards em Power BI, pipelines no Microsoft Fabric e estruturação de ambientes analíticos, com otimização de consultas sobre grande volume de dados.',
+    },
+    {
+      periodo: 'ago/2021 — mar/2023',
+      empresa: 'Tecnoplan Reestruturação e Sistemas',
+      cargo: 'Gerente de Suporte Técnico de TI',
+      resumo:
+        'Coordenação do suporte e da infraestrutura, administração de bancos Firebird e SQL Server e desenvolvimento de relatórios em Report Builder.',
+    },
+  ],
+
   // Foto do topo da pagina. Use '' para esconder. Para trocar: salve um
   // recorte QUADRADO em public/ (a pagina corta em circulo) e aponte aqui.
   foto: '/foto-perfil.jpg',
