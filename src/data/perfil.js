@@ -23,7 +23,8 @@ export const perfil = {
   // Links de contato. Deixe qualquer campo como '' para esconder o botao.
   contato: {
     email: 'estevaomathias19@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/estevaomathias',
+    linkedin:
+      'https://www.linkedin.com/in/estev%C3%A3o-mathias-767680277',
     github: 'https://github.com/EstevaoMathias',
     // Coloque o PDF em public/curriculo.pdf e deixe '/curriculo.pdf' aqui.
     curriculo: '',

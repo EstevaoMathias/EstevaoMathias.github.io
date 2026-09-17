@@ -1,5 +1,8 @@
 export default function ProjetoCard({ projeto, aoAbrir }) {
-  const capa = projeto.imagens?.[0]
+  // "capa" e uma versao reduzida so para o card; sem ela cai na 1a imagem
+  const capa = projeto.capa
+    ? { src: projeto.capa, legenda: '' }
+    : projeto.imagens?.[0]
   const totalImagens = projeto.imagens?.length ?? 0
 
   return (

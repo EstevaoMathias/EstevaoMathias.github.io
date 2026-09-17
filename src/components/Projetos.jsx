@@ -11,6 +11,15 @@ export default function Projetos({ aoAbrirProjeto }) {
             Painéis e análises que construí. Clique em um card para ver os prints em
             tamanho grande e o objetivo por trás de cada projeto.
           </p>
+          <p className="mt-4 flex gap-2.5 rounded-lg border border-linha bg-surface p-3 text-sm leading-relaxed text-suave">
+            <span aria-hidden="true" className="text-destaque-suave">
+              &#9432;
+            </span>
+            <span>
+              Nos prints, nome e CNPJ de loja, dados de pessoas e identificação de
+              empresas aparecem ofuscados. A estrutura e a análise são as originais.
+            </span>
+          </p>
         </div>
 
         {projetos.length === 0 ? (

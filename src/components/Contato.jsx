@@ -1,5 +1,16 @@
 import { perfil } from '../data/perfil.js'
 
+// Como o link aparece na tela: sem o "https://www." e com o acento de volta
+// (a URL guarda o acento codificado, senao o link nao abre em alguns clientes).
+function paraExibir(url) {
+  const limpa = url.replace(/^https?:\/\/(www\.)?/, '')
+  try {
+    return decodeURIComponent(limpa)
+  } catch {
+    return limpa
+  }
+}
+
 // Monta a lista de links a partir do que estiver preenchido em perfil.contato.
 function montarLinks({ email, linkedin, github, curriculo }) {
   const links = []
@@ -8,14 +19,14 @@ function montarLinks({ email, linkedin, github, curriculo }) {
   if (linkedin)
     links.push({
       rotulo: 'LinkedIn',
-      valor: linkedin.replace(/^https?:\/\/(www\.)?/, ''),
+      valor: paraExibir(linkedin),
       href: linkedin,
       externo: true,
     })
   if (github)
     links.push({
       rotulo: 'GitHub',
-      valor: github.replace(/^https?:\/\/(www\.)?/, ''),
+      valor: paraExibir(github),
       href: github,
       externo: true,
     })

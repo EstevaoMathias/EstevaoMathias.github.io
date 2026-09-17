@@ -25,10 +25,28 @@ Dicas para o print ficar bom no site:
 
 - **PNG** para painel de BI (texto fica nítido); JPG só se for foto.
 - Largura entre **1600 e 2000 px** — acima disso só deixa o site pesado.
-- Evite arquivos acima de 1 MB. Se passar disso, use https://squoosh.app para comprimir.
 - Nomes sem espaço e sem acento: `painel-vendas-1.png`, não `Painel Vendas (1).png`.
-- **Cuidado com dado sensível**: borre nomes de clientes, valores reais e qualquer
-  coisa que não possa ser pública antes de subir o print.
+- Se o print passar de ~600 KB, gere também uma versão reduzida para o card e
+  aponte nela o campo `capa` do projeto.
+
+> ### Antes de publicar qualquer print
+>
+> Todo print deste portfólio passa por ofuscação de:
+>
+> - nome e CNPJ de loja, filial ou empresa;
+> - nome, CPF, e-mail e telefone de pessoas;
+> - razão social e logotipos.
+>
+> O tratamento é feito **sobre os pixels** da imagem (a região é pixelizada e
+> borrada), nunca escondendo texto por CSS ou recortando o PDF — assim não sobra
+> camada de texto para recuperar.
+>
+> O script que faz isso fica em `ferramentas/`, **fora do controle de versão**,
+> porque a lista de termos que ele usa contém justamente os nomes que o
+> tratamento existe para esconder. Veja `ferramentas/LEIA-ME.txt`.
+>
+> Depois de rodar, abra **todas** as páginas geradas e confira uma por uma antes
+> de dar `git push`.
 
 ### 2. Descreva o projeto
 
@@ -49,6 +67,7 @@ Abra `src/data/projetos.js` e adicione um bloco no fim da lista:
     'Segundo indicador importante',
   ],
   ferramentas: ['Power BI', 'SQL'],
+  capa: '/assets/projetos/painel-vendas-capa.png',   // opcional, imagem do card
   imagens: [
     { src: '/assets/projetos/painel-vendas-1.png', legenda: 'Visão geral' },
     { src: '/assets/projetos/painel-vendas-2.png', legenda: 'Detalhe por região' },
@@ -58,7 +77,8 @@ Abra `src/data/projetos.js` e adicione um bloco no fim da lista:
 
 > O caminho em `src` **sempre começa em `/assets/projetos/`** — sem o `public` na frente.
 
-A primeira imagem da lista é a que aparece como capa no card.
+A primeira imagem da lista é a que aparece como capa no card — a menos que você
+preencha `capa`, que serve para usar uma versão mais leve ali.
 
 ### 3. Publique
 

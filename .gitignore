@@ -3,3 +3,8 @@ dist
 .DS_Store
 *.local
 .vite
+
+# Script de ofuscacao dos prints. Fica FORA do Git de proposito: a lista de
+# termos tem nome real de loja, de rede e de pessoa, exatamente o que o
+# tratamento existe para esconder. Nunca publicar.
+ferramentas/
