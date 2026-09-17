@@ -36,8 +36,34 @@ function Trajetoria({ itens }) {
   )
 }
 
+function Formacao({ itens }) {
+  return (
+    <div className="mt-10">
+      <h3 className="mb-4 text-xs font-semibold tracking-wider text-suave uppercase">
+        Formação
+      </h3>
+
+      <ul className="space-y-3">
+        {itens.map((item) => (
+          <li
+            key={`${item.curso}-${item.periodo}`}
+            className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-lg border border-linha bg-surface px-4 py-3"
+          >
+            <span className="font-medium text-texto">{item.curso}</span>
+            <span className="text-sm text-suave">{item.instituicao}</span>
+            <span className="ml-auto text-xs text-suave tabular-nums">
+              {item.periodo}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Sobre() {
   const trajetoria = perfil.trajetoria ?? []
+  const formacao = perfil.formacao ?? []
 
   return (
     <section id="sobre" className="border-b border-linha px-4 py-20 sm:px-6 sm:py-24">
@@ -57,6 +83,7 @@ export default function Sobre() {
           </div>
 
           {trajetoria.length > 0 && <Trajetoria itens={trajetoria} />}
+          {formacao.length > 0 && <Formacao itens={formacao} />}
         </div>
       </div>
     </section>

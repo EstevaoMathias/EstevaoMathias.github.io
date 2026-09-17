@@ -98,9 +98,13 @@ Você acompanha o progresso na aba **Actions** do repositório.
 Nome, cargo, texto do "Sobre", trajetória profissional, ferramentas e links de
 contato ficam todos em `src/data/perfil.js`.
 
-A trajetória é a lista `trajetoria`, do emprego mais recente para o mais antigo;
-cada item tem `periodo`, `empresa`, `cargo` e `resumo`. Ela aparece dentro da
-seção "Sobre" — deixe a lista vazia (`[]`) para escondê-la.
+Duas listas aparecem dentro da seção "Sobre", e cada uma some se você deixá-la
+vazia (`[]`):
+
+- `trajetoria` — empregos, do mais recente para o mais antigo. Cada item tem
+  `periodo`, `empresa`, `cargo` e `resumo`.
+- `formacao` — formação acadêmica. Cada item tem `periodo`, `curso` e
+  `instituicao`.
 
 Para disponibilizar o currículo em PDF: salve o arquivo como `public/curriculo.pdf` e
 preencha `curriculo: '/curriculo.pdf'` em `perfil.contato`.

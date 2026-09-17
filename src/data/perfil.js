@@ -46,6 +46,16 @@ export const perfil = {
     },
   ],
 
+  // Formacao academica, da mais recente para a mais antiga.
+  // Use [] para esconder.
+  formacao: [
+    {
+      periodo: '2021 — 2024',
+      curso: 'Sistemas de Informação',
+      instituicao: 'UNIARAXÁ',
+    },
+  ],
+
   // Foto do topo da pagina. Use '' para esconder. Para trocar: salve um
   // recorte QUADRADO em public/ (a pagina corta em circulo) e aponte aqui.
   foto: '/foto-perfil.jpg',
