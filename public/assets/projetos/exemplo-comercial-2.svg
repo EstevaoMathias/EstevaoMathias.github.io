@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Exemplo de funil de conversao">
+  <rect width="1600" height="900" fill="#f6f8fa"/>
+  <rect x="0" y="0" width="1600" height="88" fill="#ffffff"/>
+  <rect x="48" y="34" width="290" height="20" rx="6" fill="#24292f"/>
+  <rect x="1360" y="30" width="192" height="28" rx="6" fill="#eaeef2"/>
+  <rect x="48" y="128" width="900" height="592" rx="10" fill="#ffffff"/>
+  <rect x="80" y="160" width="200" height="14" rx="5" fill="#57606a"/>
+  <g fill="#2f81f7">
+    <rect x="130" y="224" width="740" height="76" rx="6"/>
+    <rect x="205" y="324" width="590" height="76" rx="6" opacity="0.85"/>
+    <rect x="280" y="424" width="440" height="76" rx="6" opacity="0.7"/>
+    <rect x="345" y="524" width="310" height="76" rx="6" opacity="0.55"/>
+    <rect x="410" y="624" width="180" height="76" rx="6" opacity="0.4"/>
+  </g>
+  <rect x="992" y="128" width="560" height="284" rx="10" fill="#ffffff"/>
+  <rect x="1024" y="160" width="170" height="14" rx="5" fill="#57606a"/>
+  <circle cx="1272" cy="300" r="86" fill="none" stroke="#eaeef2" stroke-width="30"/>
+  <circle cx="1272" cy="300" r="86" fill="none" stroke="#2f81f7" stroke-width="30" stroke-dasharray="380 540" stroke-linecap="round" transform="rotate(-90 1272 300)"/>
+  <rect x="992" y="436" width="560" height="284" rx="10" fill="#ffffff"/>
+  <rect x="1024" y="468" width="210" height="14" rx="5" fill="#57606a"/>
+  <g fill="#eaeef2">
+    <rect x="1024" y="516" width="330" height="12" rx="4"/>
+    <rect x="1024" y="560" width="280" height="12" rx="4"/>
+    <rect x="1024" y="604" width="350" height="12" rx="4"/>
+    <rect x="1024" y="648" width="260" height="12" rx="4"/>
+  </g>
+  <g fill="#fb8500" opacity="0.7">
+    <rect x="1430" y="516" width="90" height="12" rx="4"/>
+    <rect x="1450" y="560" width="70" height="12" rx="4"/>
+    <rect x="1410" y="604" width="110" height="12" rx="4"/>
+    <rect x="1460" y="648" width="60" height="12" rx="4"/>
+  </g>
+  <g text-anchor="middle" font-family="Inter, Segoe UI, sans-serif">
+    <text x="800" y="800" fill="#57606a" font-size="30" font-weight="600">Exemplo de layout</text>
+    <text x="800" y="842" fill="#8b949e" font-size="22">Substitua por um print do seu painel em public/assets/projetos/</text>
+  </g>
+</svg>

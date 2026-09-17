@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-base: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-2: #1c2129;
+  --color-linha: #30363d;
+  --color-texto: #e6edf3;
+  --color-suave: #8b949e;
+  --color-destaque: #2f81f7;
+  --color-destaque-suave: #58a6ff;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* compensa o cabecalho fixo ao pular para uma ancora */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-texto);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* trava o scroll do fundo enquanto o modal esta aberto */
+body.modal-aberto {
+  overflow: hidden;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-destaque) 35%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-destaque-suave);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
