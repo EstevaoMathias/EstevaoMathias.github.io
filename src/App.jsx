@@ -24,8 +24,8 @@ export default function App() {
 
       <main>
         <Topo />
-        <Projetos aoAbrirProjeto={setProjetoAberto} />
         <Sobre />
+        <Projetos aoAbrirProjeto={setProjetoAberto} />
         <Ferramentas />
         <Contato />
       </main>

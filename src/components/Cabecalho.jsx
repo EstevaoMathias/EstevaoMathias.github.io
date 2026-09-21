@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { perfil } from '../data/perfil.js'
 
 const secoes = [
-  { href: '#projetos', rotulo: 'Projetos' },
   { href: '#sobre', rotulo: 'Sobre' },
+  { href: '#projetos', rotulo: 'Projetos' },
   { href: '#ferramentas', rotulo: 'Ferramentas' },
   { href: '#contato', rotulo: 'Contato' },
 ]
