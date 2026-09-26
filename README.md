@@ -80,6 +80,28 @@ Abra `src/data/projetos.js` e adicione um bloco no fim da lista:
 A primeira imagem da lista é a que aparece como capa no card — a menos que você
 preencha `capa`, que serve para usar uma versão mais leve ali.
 
+#### Projeto com vídeo e link
+
+Dois campos opcionais, usados no *Painel de Vendas com IA*:
+
+```js
+capa: '/assets/projetos/painel-ia-capa.png',        // obrigatória com vídeo
+video: {
+  src: '/assets/projetos/painel-ia.mp4',
+  poster: '/assets/projetos/painel-ia-poster.jpg',  // 1º quadro do vídeo
+  legenda: 'O que o vídeo mostra',
+},
+imagens: [],
+link: { url: 'https://github.com/...', rotulo: 'Ver código no GitHub' },
+```
+
+- `video` toca no modal **no lugar dos prints** e em prévia, sem som, ao passar o
+  mouse no card (o card mostra a `capa` e só baixa o vídeo no hover).
+- Use **MP4 (H.264)** de até ~5 MB. Grave em 1280×720; mais que isso só pesa.
+- `link` vira um botão no modal, abaixo das ferramentas.
+- Vídeo também passa pela regra de dado sensível: se mostrar dado real de
+  cliente, não use.
+
 ### 3. Publique
 
 ```bash

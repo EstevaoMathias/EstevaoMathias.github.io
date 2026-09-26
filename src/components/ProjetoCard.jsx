@@ -1,15 +1,32 @@
+import { useRef } from 'react'
+
 export default function ProjetoCard({ projeto, aoAbrir }) {
   // "capa" e uma versao reduzida so para o card; sem ela cai na 1a imagem
   const capa = projeto.capa
     ? { src: projeto.capa, legenda: '' }
     : projeto.imagens?.[0]
   const totalImagens = projeto.imagens?.length ?? 0
+  const videoRef = useRef(null)
+
+  // Projeto com video: a capa continua sendo a imagem (leve, carrega rapido) e o
+  // video so e baixado e tocado, sem som, quando o mouse passa pelo card.
+  function tocarPrevia() {
+    videoRef.current?.play().catch(() => {})
+  }
+  function pararPrevia() {
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+  }
 
   return (
     <article className="group h-full min-w-0">
       <button
         type="button"
         onClick={aoAbrir}
+        onMouseEnter={projeto.video ? tocarPrevia : undefined}
+        onMouseLeave={projeto.video ? pararPrevia : undefined}
         aria-label={`Abrir detalhes do projeto ${projeto.titulo}`}
         className="flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-linha bg-surface text-left transition-all duration-200 hover:-translate-y-1 hover:border-destaque/60 hover:shadow-lg hover:shadow-black/30"
       >
@@ -27,7 +44,24 @@ export default function ProjetoCard({ projeto, aoAbrir }) {
             </div>
           )}
 
-          {totalImagens > 1 && (
+          {projeto.video && (
+            <video
+              ref={videoRef}
+              src={projeto.video.src}
+              muted
+              loop
+              playsInline
+              preload="none"
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 size-full object-cover object-top opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            />
+          )}
+
+          {projeto.video ? (
+            <span className="absolute right-3 bottom-3 flex items-center gap-1.5 rounded-md bg-black/70 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
+              <span aria-hidden="true">▶</span> Vídeo
+            </span>
+          ) : totalImagens > 1 && (
             <span className="absolute right-3 bottom-3 rounded-md bg-black/70 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
               {totalImagens} imagens
             </span>

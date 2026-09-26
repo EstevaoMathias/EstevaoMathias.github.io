@@ -18,6 +18,10 @@
 //   ferramentas etiquetas de tecnologia
 //   capa        imagem do card (opcional, mais leve). Sem ela usa a 1a imagem.
 //   imagens     lista de prints: { src, legenda }
+//   video       opcional: { src, poster, legenda }. Toca no modal NO LUGAR dos
+//               prints e em previa (sem som) ao passar o mouse no card.
+//               Use MP4 (H.264) de ate ~5 MB. Com video, "capa" e obrigatoria.
+//   link        opcional: { url, rotulo } -- botao no modal (ex.: repositorio)
 //
 // ATENCAO: todo print passa por tratamento de dado sensivel -- nome e CNPJ de
 // loja, nome e contato de pessoas, razao social e logotipos. Sao dois caminhos:
@@ -32,6 +36,46 @@
 // ---------------------------------------------------------------------------
 
 export const projetos = [
+  {
+    id: 'painel-vendas-com-ia',
+    titulo: 'Painel de Vendas com IA',
+    cliente: 'Projeto pessoal',
+    ano: '2026',
+    resumo:
+      'Um painel de vendas com um analista de IA embutido: ele explica os números, liga cada um ao seu gráfico e responde perguntas em português.',
+    objetivo:
+      'Num dashboard tradicional quem olha precisa descobrir sozinho o que mudou, onde e por quê. Aqui a IA faz esse trabalho: resume o período com cada número ligado por uma linha ao gráfico de onde ele veio, abre seis análises relacionadas quando se clica em um indicador e responde perguntas como "como foram as vendas em novembro?" ou "quem mais vendeu em março?", comparando com o mesmo período do ano anterior. Nenhum número é gerado pela IA: todos saem de consultas à base por uma camada semântica de métricas, então o chat e o painel sempre mostram o mesmo valor. Todo o desenvolvimento foi feito com o Claude Code, da Anthropic, incluindo a lógica das análises. Os dados são fictícios.',
+    destaques: [
+      'Análise geral com um clique, cada número ligado ao seu gráfico',
+      'Clique em um indicador e surgem 6 análises conectadas a ele',
+      'Perguntas em português sobre mês, produto, marca, vendedor ou cidade',
+      'Gerador de gráficos: a IA escolhe o formato e escreve a leitura',
+      'Filtros de período, produto, vendedor e local valendo para tudo',
+      'Camada semântica: painel, chat e gráficos usam as mesmas métricas',
+    ],
+    ferramentas: [
+      'Claude Code',
+      'Python',
+      'FastAPI',
+      'ClickHouse',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+    ],
+    capa: '/assets/projetos/painel-ia-capa.png',
+    video: {
+      src: '/assets/projetos/painel-ia.mp4',
+      poster: '/assets/projetos/painel-ia-poster.jpg',
+      legenda:
+        'Painel, análise em foco, análise geral com números ligados aos gráficos, perguntas por período, filtros e gerador de gráficos',
+    },
+    imagens: [],
+    link: {
+      url: 'https://github.com/EstevaoMathias/painel-inteligente',
+      rotulo: 'Ver código no GitHub',
+    },
+  },
+
   {
     id: 'monitor-de-extracoes',
     titulo: 'Monitor de Extrações',

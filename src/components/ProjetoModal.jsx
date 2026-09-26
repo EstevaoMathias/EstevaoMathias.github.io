@@ -33,6 +33,8 @@ export default function ProjetoModal({ projeto, aoFechar }) {
   const imagens = projeto?.imagens ?? []
   const total = imagens.length
   const imagemAtual = imagens[indice]
+  // Projeto com video: o video ocupa a area dos prints (no lugar do carrossel)
+  const video = projeto?.video
 
   const ampliado = nivel > 0
   const larguraAmpliada = ampliado ? passos[nivel - 1] : null
@@ -218,6 +220,23 @@ export default function ProjetoModal({ projeto, aoFechar }) {
       >
         {/* ---------- area das imagens ---------- */}
         <div className="flex min-w-0 flex-col bg-surface-2">
+          {video ? (
+            <div className="flex flex-1 items-center justify-center p-3 sm:p-6">
+              <video
+                key={video.src}
+                src={video.src}
+                poster={video.poster}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={video.legenda || `Vídeo do projeto ${projeto.titulo}`}
+                className="max-h-[72vh] w-full rounded-lg bg-black"
+              />
+            </div>
+          ) : (
           <div className="relative">
             <div
               ref={areaRef}
@@ -297,8 +316,15 @@ export default function ProjetoModal({ projeto, aoFechar }) {
               </div>
             )}
           </div>
+          )}
 
-          {imagemAtual && (
+          {video?.legenda && (
+            <div className="border-t border-linha px-4 py-3 sm:px-6">
+              <p className="text-sm text-suave">{video.legenda}</p>
+            </div>
+          )}
+
+          {!video && imagemAtual && (
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-linha px-4 py-3 sm:px-6">
               <p className="min-w-0 flex-1 text-sm text-suave">{imagemAtual.legenda}</p>
 
@@ -403,10 +429,29 @@ export default function ProjetoModal({ projeto, aoFechar }) {
                 </ul>
               </div>
             )}
+
+            {projeto.link && (
+              <a
+                href={projeto.link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-linha bg-surface px-3.5 py-2 text-sm font-medium text-texto transition-colors hover:border-destaque/60 hover:text-destaque-suave"
+              >
+                {projeto.link.rotulo || 'Ver projeto'}
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
           </div>
 
           <p className="border-t border-linha px-5 py-3 text-xs text-suave sm:px-6">
-            {!ampliado ? (
+            {video ? (
+              <>
+                <kbd className="rounded border border-linha bg-surface px-1 py-0.5">
+                  Esc
+                </kbd>{' '}
+                fecha.
+              </>
+            ) : !ampliado ? (
               <>
                 Clique na imagem para ampliar.{' '}
                 <kbd className="rounded border border-linha bg-surface px-1 py-0.5">
